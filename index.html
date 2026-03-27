@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Astra Align</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+    <!-- Overlay for iOS Permissions -->
+    <div id="permission-overlay" class="overlay active">
+        <h1>Astra V2.1 Alignment</h1>
+        <p>This app requires access to your device's Orientation and GPS sensors to calculate the position of Polaris.</p>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Make sure the barn door tracker is fully closed.</li>
+            <li>Place your phone perfectly flat on top of the moving plate, top edge pointing forward (parallel to hinge).</li>
+            <li>Use the tripod head to adjust altitude/azimuth.</li>
+        </ol>
+        <button id="btn-start">Start Alignment</button>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="hidden">
+        <div id="data-readout">
+            <div class="data-group">
+                <span class="label">GPS:</span> <span id="val-gps">Waiting...</span>
+            </div>
+            <div class="data-group">
+                <span class="label">Pitch (Target / Cur):</span> 
+                <span id="val-pitch-target">--</span>° / <span id="val-pitch-current">--</span>°
+            </div>
+            <div class="data-group">
+                <span class="label">Azimuth (Target / Cur):</span> 
+                <span id="val-az-target">--</span>° / <span id="val-az-current">--</span>°
+            </div>
+        </div>
+
+        <div id="targeting-area">
+            <div id="reticle-target" class="reticle bullseye"></div>
+            <div id="reticle-current" class="reticle crosshair"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

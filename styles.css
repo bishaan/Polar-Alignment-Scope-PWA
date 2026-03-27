@@ -1,0 +1,117 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    background-color: #000;
+    color: #f00;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+.overlay.hidden { display: none; }
+.overlay h1 { margin-bottom: 20px; text-align: center; }
+.overlay p, .overlay ol { margin-bottom: 15px; font-size: 1.1rem; line-height: 1.4; max-width: 400px; color: #f00; }
+.overlay ol { padding-left: 20px; }
+.overlay li { margin-bottom: 10px; }
+
+#btn-start {
+    background-color: #f00;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+#app-container.hidden { display: none; }
+
+#data-readout {
+    padding: 15px;
+    background-color: #111;
+    border-bottom: 2px solid #500;
+    font-family: monospace;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+.data-group { display: flex; justify-content: space-between; }
+.label { color: #800; font-weight: bold; }
+
+#targeting-area {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.reticle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Stationary Bullseye in center (Polaris Target) */
+.bullseye {
+    top: 50%; left: 50%;
+    border: 3px solid #f00;
+}
+.bullseye::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 6px; height: 6px;
+    background: #f00;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Moving Crosshair (Current Orientation) */
+.crosshair {
+    top: 50%; left: 50%;
+    border: 3px dashed #f00;
+    transition: top 0.05s linear, left 0.05s linear, border-color 0.2s, color 0.2s;
+}
+.crosshair::before {
+    content: '';
+    position: absolute; top: -20px; bottom: -20px; left: 50%; width: 2px;
+    background: #f00;
+    transform: translateX(-50%);
+    transition: background-color 0.2s;
+}
+.crosshair::after {
+    content: '';
+    position: absolute; left: -20px; right: -20px; top: 50%; height: 2px;
+    background: #f00;
+    transform: translateY(-50%);
+    transition: background-color 0.2s;
+}
+
+.aligned { border-color: #0f0 !important; }
+.aligned::before, .aligned::after { background-color: #0f0 !important; }

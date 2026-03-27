@@ -1,0 +1,16 @@
+{
+  "name": "Astra V2.1 Polar Alignment",
+  "short_name": "Astra Align",
+  "description": "Astrophotography polar alignment assistant for the Astra V2.1 tracker.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff0000",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' stroke='red' stroke-width='4' fill='none'/><circle cx='50' cy='50' r='10' fill='red'/></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
