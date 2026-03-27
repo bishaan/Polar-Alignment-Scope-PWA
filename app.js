@@ -20,7 +20,8 @@ let smoothedPitch = 0;
 let smoothedYaw = 0;
 let isAbsolute = false;
 let firstFrame = true;
-const SMOOTHING = 0.08;
+const PITCH_SMOOTHING = 0.1;
+const YAW_SMOOTHING = 0.015;
 
 function smoothAngle(current, target, alpha) {
     let diff = target - current;
@@ -83,8 +84,27 @@ function getPolarisOffset(lat, lng) {
     return { pitchOffset, yawOffset };
 }
 
+// Screen Wake Lock
+let wakeLock = null;
+async function requestWakeLock() {
+    if ('wakeLock' in navigator) {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+        } catch (err) {
+            console.warn(`Wake Lock error: ${err.message}`);
+        }
+    }
+}
+document.addEventListener('visibilitychange', () => {
+    if (wakeLock !== null && document.visibilityState === 'visible') {
+        requestWakeLock();
+    }
+});
+
 // initialization
 btnStart.addEventListener('click', async () => {
+    requestWakeLock();
+
     // Request orientation permission on iOS
     if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         try {
@@ -169,8 +189,8 @@ function updateUI() {
         smoothedYaw = currentOrientation.yaw || 0;
         firstFrame = false;
     } else if (!firstFrame) {
-        smoothedPitch = smoothedPitch + (currentOrientation.pitch - smoothedPitch) * SMOOTHING;
-        smoothedYaw = smoothAngle(smoothedYaw, currentOrientation.yaw, SMOOTHING);
+        smoothedPitch = smoothedPitch + (currentOrientation.pitch - smoothedPitch) * PITCH_SMOOTHING;
+        smoothedYaw = smoothAngle(smoothedYaw, currentOrientation.yaw, YAW_SMOOTHING);
     }
 
     // Update readouts 

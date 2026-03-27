@@ -1,6 +1,6 @@
 {
-  "name": "Astra V2.1 Polar Alignment",
-  "short_name": "Astra Align",
+  "name": "Polar Alignment Scope PWA",
+  "short_name": "Polar Scope",
   "description": "Astrophotography polar alignment assistant for the Astra V2.1 tracker.",
   "start_url": "index.html",
   "display": "standalone",
